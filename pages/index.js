@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 // Data/Functions/Images Imports
 
 // Component Imports
+import { Nav } from "@/assets/components/global/All/Nav";
+import { LoginWindow } from "@/assets/components/pages/Index/LoginWindow";
 
 // Style Imports
 import "../assets/styles/modules/Index/Index.module.css";
@@ -21,7 +23,11 @@ export default function Home() {
 
   return (
     <div id="PAGE">
-      <div id="PAGE_CNT"></div>
+      <Nav />
+
+      <div id="PAGE_CNT">
+        <LoginWindow />
+      </div>
     </div>
   );
 }

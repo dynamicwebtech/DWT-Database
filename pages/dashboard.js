@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 // Data/Functions/Images Imports
 
 // Component Imports
+import { Nav } from "@/assets/components/global/All/Nav";
 
 // Style Imports
 import "../assets/styles/modules/Dashboard/Dashboard.module.css";
@@ -21,6 +22,8 @@ export default function Dashboard() {
 
   return (
     <div id="PAGE">
+      <Nav />
+
       <div id="PAGE_CNT"></div>
     </div>
   );
