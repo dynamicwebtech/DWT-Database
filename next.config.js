@@ -14,7 +14,7 @@ module.exports = {
 
   //! This added clean urls and eliminates the .html extension aswell as linking
   //! CSS and JS with the trailingSlash
-  assetPrefix: isProd ? "PUT_WEBSITE_URL_HERE" : "",
+  assetPrefix: isProd ? "https://remarkable-jelly-9bc15d.netlify.app/" : "",
   trailingSlash: true,
 
   // This adds the _headers file after npm run build

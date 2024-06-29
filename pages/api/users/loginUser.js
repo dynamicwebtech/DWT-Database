@@ -1,9 +1,3 @@
-/**
- *
- *  This is the loginUser api
- *
- */
-
 import { MongoClient } from "mongodb";
 import bcrypt from "bcrypt";
 
@@ -25,57 +19,53 @@ async function connectToDatabase() {
 }
 
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
+  let db_client = null;
 
-  const { loginEmail, loginUsername, loginPassword } = req.body;
-
-  if (!loginEmail && !loginUsername) {
-    return res.status(400).json({ error: "Email or username is required" });
-  }
-
-  if (!loginPassword) {
-    return res.status(400).json({ error: "Password is required" });
-  }
-
-  let client;
   try {
-    client = await connectToDatabase();
-    const db = client.db(process.env.USERS_DB_NAME);
-    const usersCollection = db.collection(process.env.USERS_DB_COLLECTION);
+    if (req.method === "POST") {
+      const { createEmail, createUsername, createPassword } = req.body;
 
-    const user = await usersCollection.findOne({
-      $or: [{ email: loginEmail }, { username: loginUsername }],
-    });
+      db_client = await connectToDatabase();
 
-    if (!user) {
-      return res
-        .status(401)
-        .json({ error: "Invalid username/email or password" });
+      const collection = db_client
+        .db(process.env.USERS_DB_NAME)
+        .collection(process.env.USERS_DB_COLLECTION);
+
+      // Find the user based on email or username
+      const user = await collection.findOne({
+        $or: [{ createEmail }, { createUsername }],
+      });
+
+      if (!user) {
+        res.status(401).json({
+          error:
+            "ERROR: That user was not found.. Make sure the email or username is correct and selected!",
+        });
+        return; // Exit if user not found
+      }
+
+      // Compare the provided password with the hashed password from the database
+      const isPasswordCorrect = await bcrypt.compare(
+        createPassword,
+        user.createPassword
+      );
+
+      if (!isPasswordCorrect) {
+        res.status(401).json({ error: "ERROR: Invalid password" });
+        return; // Exit if password is incorrect
+      }
+
+      res.status(200).json({ message: "Login successful", user });
+    } else {
+      res.status(405).json({ error: "ERROR: Method Not Allowed" });
     }
-
-    const isPasswordCorrect = await bcrypt.compare(
-      loginPassword,
-      user.password
-    );
-    if (!isPasswordCorrect) {
-      return res
-        .status(401)
-        .json({ error: "Invalid username/email or password" });
-    }
-
-    // Here you can generate a token if using JWT or handle session management
-    const token = "Current User"; // Replace with real token generation
-    const message = "Login successful";
-
-    return res.status(200).json({ message, token });
   } catch (error) {
-    console.error("Error connecting to the database:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
+    console.error("Error logging in:", error);
+    res.status(500).json({ error: "ERROR: Internal Server Error" });
   } finally {
-    if (client) {
-      await client.close();
+    if (db_client) {
+      await db_client.close();
+      console.log("Closed connection to database");
     }
   }
 }

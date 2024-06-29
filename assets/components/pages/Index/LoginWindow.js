@@ -1,39 +1,40 @@
-/**
- *
- *  This is the Login Window
- *
- */
-
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-
 import { FaEyeSlash, FaEye } from "react-icons/fa";
+
+import { ForgotPasswordWindow } from "./Password/ForgotPasswordWindow";
+import { CreateAccountWindow } from "./CreateAccountWindow";
 
 import styles from "../../../styles/modules/Index/Index.module.css";
 
-export const LoginWindow = () => {
+export const LoginWindow = ({ users }) => {
   const router = useRouter();
 
   const [withEmailStatus, setWithEmailStatus] = useState(false);
-  const [withUsernameStatus, setWithUsernameStatus] = useState(true);
+  const [withUsernameStatus, setWithUsernameStatus] = useState(false);
   const [passwordStatus, setPasswordStatus] = useState(false);
   const [loginUsername, setLoginUsername] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [forgotPasswordStatus, setForgotPasswordStatus] = useState(false);
+  const [resetPasswordStatus, setResetPasswordStatus] = useState(false);
   const [createAccountStatus, setCreateAccountStatus] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const loginData = {
-      loginPassword: loginPassword,
-    };
+    let loginData = {};
 
     if (withUsernameStatus) {
-      loginData.loginUsername = loginUsername;
+      loginData = {
+        createUsername: loginUsername,
+        createPassword: loginPassword,
+      };
     } else if (withEmailStatus) {
-      loginData.loginEmail = loginEmail;
+      loginData = {
+        createEmail: loginEmail,
+        createPassword: loginPassword,
+      };
     }
 
     try {
@@ -46,14 +47,10 @@ export const LoginWindow = () => {
       });
 
       const data = await response.json();
-      const { token } = data;
 
       if (response.ok) {
         alert(data.message);
-
-        // Store the token in localStorage
-        localStorage.setItem("Current User", token);
-
+        localStorage.setItem("Current User", JSON.stringify(data.user));
         router.push("/dashboard");
       } else {
         alert(data.error);
@@ -67,16 +64,11 @@ export const LoginWindow = () => {
   const handleReset = (e) => {
     setPasswordStatus(false);
     document.getElementById("loginPassword").type = "password";
-
     setWithEmailStatus(false);
     setWithUsernameStatus(true);
-
     setLoginEmail("");
     setLoginUsername("");
     setLoginPassword("");
-
-    setForgotPasswordStatus(false);
-    setCreateAccountStatus(false);
   };
 
   return (
@@ -98,16 +90,13 @@ export const LoginWindow = () => {
                     type="radio"
                     id="withUsername"
                     name="withUsername"
-                    defaultChecked
                     checked={withUsernameStatus}
-                    onChange={(e) => {
-                      if (e.currentTarget.checked) {
-                        setWithEmailStatus(false);
-                        setWithUsernameStatus(true);
-                      }
+                    onChange={() => {
+                      setWithEmailStatus(false);
+                      setWithUsernameStatus(true);
                     }}
                   />
-                  Login With Username
+                  <span>Login With Username</span>
                 </label>
               </li>
               <li>
@@ -117,135 +106,171 @@ export const LoginWindow = () => {
                     id="withEmail"
                     name="withEmail"
                     checked={withEmailStatus}
-                    onChange={(e) => {
-                      if (e.currentTarget.checked) {
-                        setWithEmailStatus(true);
-                        setWithUsernameStatus(false);
-                      }
+                    onChange={() => {
+                      setWithEmailStatus(true);
+                      setWithUsernameStatus(false);
                     }}
-                  />{" "}
-                  Login With Email Address
+                  />
+                  <span>Login With Email Address</span>
                 </label>
               </li>
             </ul>
           </div>
+
           {withUsernameStatus && (
-            <div className={`${styles.form_set}`}>
+            <div className={`${styles.form_set} ${styles.input_set}`}>
               <input
                 type="text"
                 className="orientation-change-element half-second"
                 name="loginUsername"
                 id="loginUsername"
                 placeholder="Username"
-                onChange={(e) => {
-                  setLoginUsername(e.currentTarget.value);
-                }}
+                value={loginUsername}
+                onChange={(e) => setLoginUsername(e.currentTarget.value)}
               />
             </div>
           )}
+
           {withEmailStatus && (
-            <div className={`${styles.form_set}`}>
+            <div className={`${styles.form_set} ${styles.input_set}`}>
               <input
                 type="email"
                 className="orientation-change-element half-second"
                 name="loginEmail"
                 id="loginEmail"
                 placeholder="Email Address"
-                onChange={(e) => {
-                  setLoginEmail(e.currentTarget.value);
-                }}
+                value={loginEmail}
+                onChange={(e) => setLoginEmail(e.currentTarget.value)}
               />
             </div>
           )}
 
-          <div className={`${styles.form_set}`}>
+          <div
+            className={`${styles.form_set} ${styles.input_set} ${styles.password_set}`}
+          >
             <input
-              type="password"
+              type={passwordStatus ? "text" : "password"}
               className="orientation-change-element half-second"
               name="loginPassword"
               id="loginPassword"
               placeholder="Password"
-              onChange={(e) => {
-                setLoginPassword(e.currentTarget.value);
-              }}
-              // hidden="false"
+              value={loginPassword}
+              onChange={(e) => setLoginPassword(e.currentTarget.value)}
             />
 
             <div className={`${styles.password_checkbox}`}>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={passwordStatus}
-                  onChange={(e) => {
-                    if (e.currentTarget.checked) {
-                      setPasswordStatus(true);
-                      document.getElementById("loginPassword").type = "text";
-                    } else {
-                      setPasswordStatus(false);
-                      document.getElementById("loginPassword").type =
-                        "password";
-                    }
-                  }}
-                />
+              <input
+                type="checkbox"
+                checked={passwordStatus}
+                onChange={() => setPasswordStatus(!passwordStatus)}
+              />
 
-                {!passwordStatus ? (
-                  <FaEye
-                    className={`${styles.icon} orientation-change-element half-second`}
-                  />
-                ) : (
-                  <FaEyeSlash
-                    className={`${styles.icon} orientation-change-element half-second`}
-                  />
-                )}
-              </label>
+              {!passwordStatus ? (
+                <FaEye
+                  className={`${styles.icon} orientation-change-element half-second`}
+                />
+              ) : (
+                <FaEyeSlash
+                  className={`${styles.icon} orientation-change-element half-second`}
+                />
+              )}
             </div>
           </div>
 
-          <div className={`${styles.form_btns}`}>
-            <button
-              type="reset"
-              className={`${styles.reset_btn} orientation-change-element half-second`}
+          <div className={`${styles.form_row} row`}>
+            <div
+              className={`${styles.form_side} ${styles.form_L} col-lg-6 col-md-6 col-sm-12 col-xs-12`}
             >
-              <span>CLEAR</span>
-            </button>
+              <div className={`${styles.form_side_cnt} ${styles.form_btns}`}>
+                <button
+                  type="reset"
+                  className={`${styles.reset_btn} orientation-change-element half-second`}
+                >
+                  <span>CLEAR</span>
+                </button>
 
-            <button
-              type="submit"
-              className={`${styles.login_btn} orientation-change-element half-second`}
+                <button
+                  type="submit"
+                  className={`${styles.login_btn} orientation-change-element half-second`}
+                >
+                  <span>LOGIN</span>
+                </button>
+              </div>
+            </div>
+
+            <div
+              className={`${styles.form_side} ${styles.form_R} col-lg-6 col-md-6 col-sm-12 col-xs-12`}
             >
-              <span>LOGIN</span>
-            </button>
+              <div
+                className={`${styles.form_side_cnt} ${styles.form_inner_bottom}`}
+              >
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setForgotPasswordStatus(true);
+                    setResetPasswordStatus(false);
+                    setCreateAccountStatus(false);
+
+                    if (document.getElementById("forgotPasswordWindow")) {
+                      document.getElementById(
+                        "forgotPasswordWindow"
+                      ).style.display = "block";
+                      document.getElementById(
+                        "forgotPasswordWindow"
+                      ).style.pointerEvents = "auto";
+                      document.getElementById(
+                        "forgotPasswordWindow"
+                      ).style.overflowY = "auto";
+                    }
+
+                    document.body.style.pointerEvents = "none";
+                    document.body.style.overflowY = "hidden";
+                  }}
+                  id="forgotPasswordBtn"
+                  className={`${styles.forgot_password_btn} orientation-change-element half-second`}
+                >
+                  <span>
+                    <u>Forgot Password?</u>
+                  </span>
+                </button>
+
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setForgotPasswordStatus(false);
+                    setResetPasswordStatus(false);
+                    setCreateAccountStatus(true);
+
+                    if (document.getElementById("createAccountWindow")) {
+                      document.getElementById(
+                        "createAccountWindow"
+                      ).style.display = "block";
+                      document.getElementById(
+                        "createAccountWindow"
+                      ).style.pointerEvents = "auto";
+                      document.getElementById(
+                        "createAccountWindow"
+                      ).style.overflowY = "auto";
+                    }
+
+                    document.body.style.pointerEvents = "none";
+                    document.body.style.overflowY = "hidden";
+                  }}
+                  id="createAccountBtn"
+                  className={`${styles.create_account_btn} orientation-change-element half-second`}
+                >
+                  <span>
+                    <u>Create An Account?</u>
+                  </span>
+                </button>
+              </div>
+            </div>
           </div>
         </form>
-
-        <div className={`${styles.login_window_inner_bottom}`}>
-          <button
-            onClick={(e) => {
-              setForgotPasswordStatus(true);
-              setCreateAccountStatus(false);
-            }}
-            id="forgotPasswordBtn"
-            className={`${styles.forgot_password_btn} orientation-change-element half-second`}
-          >
-            <span>
-              <u>Forgot Password?</u>
-            </span>
-          </button>
-
-          <button
-            onClick={(e) => {
-              setForgotPasswordStatus(false);
-              setCreateAccountStatus(true);
-            }}
-            id="createAccountBtn"
-            className={`${styles.create_account_btn} orientation-change-element half-second`}
-          >
-            <span>
-              <u>Create An Account?</u>
-            </span>
-          </button>
-        </div>
       </div>
+
+      <ForgotPasswordWindow users={users} setter={setForgotPasswordStatus} />
+      <CreateAccountWindow users={users} setter={setCreateAccountStatus} />
     </section>
   );
 };

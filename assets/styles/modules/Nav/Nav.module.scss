@@ -44,6 +44,16 @@
           align-items: center;
         }
 
+        .nav_L_LOGIN {
+          justify-content: center;
+
+          .nav_inner_side_cnt {
+            img {
+              max-width: 500px;
+            }
+          }
+        }
+
         .nav_L {
           justify-content: flex-start;
 
@@ -152,7 +162,8 @@
             justify-content: center;
           }
 
-          .nav_L {
+          .nav_L,
+          .nav_L_LOGIN {
             .nav_inner_side_cnt {
               img {
                 max-width: 400px;
@@ -201,7 +212,8 @@
             justify-content: center;
           }
 
-          .nav_L {
+          .nav_L,
+          .nav_L_LOGIN {
             .nav_inner_side_cnt {
               img {
                 max-width: 260px;
@@ -253,7 +265,8 @@
             justify-content: center;
           }
 
-          .nav_L {
+          .nav_L,
+          .nav_L_LOGIN {
             .nav_inner_side_cnt {
               img {
                 max-width: 250px;
@@ -308,7 +321,8 @@
             // justify-content: center;
           }
 
-          .nav_L {
+          .nav_L,
+          .nav_L_LOGIN {
             justify-content: flex-start;
 
             .nav_inner_side_cnt {
@@ -369,7 +383,7 @@
             // justify-content: center;
           }
 
-          .nav_L {
+          .nav_L, .nav_L_LOGIN {
             justify-content: flex-start;
 
             .nav_inner_side_cnt {
@@ -429,7 +443,7 @@
             // justify-content: center;
           }
 
-          .nav_L {
+          .nav_L, .nav_L_LOGIN {
             justify-content: flex-start;
 
             .nav_inner_side_cnt {
@@ -490,7 +504,7 @@
             // justify-content: center;
           }
 
-          .nav_L {
+          .nav_L, .nav_L_LOGIN {
             justify-content: flex-start;
 
             .nav_inner_side_cnt {
@@ -550,7 +564,7 @@
             // justify-content: center;
           }
 
-          .nav_L {
+          .nav_L, .nav_L_LOGIN {
             justify-content: flex-start;
 
             .nav_inner_side_cnt {
@@ -611,7 +625,7 @@
             // justify-content: center;
           }
 
-          .nav_L {
+          .nav_L, .nav_L_LOGIN {
             justify-content: flex-start;
 
             .nav_inner_side_cnt {

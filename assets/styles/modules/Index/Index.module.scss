@@ -26,6 +26,216 @@
 }
 
 // Desktop
+.login_window {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.043);
+  max-width: 900px;
+  width: 100%;
+  @include quickCenter("relative");
+
+  .login_window_inner {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+
+    h1 {
+      font-family: "Open Sans Bold";
+      font-size: $Logo;
+      color: $EasternBlue;
+      margin-bottom: 30px;
+    }
+
+    form {
+      .form_set {
+        ul {
+          margin-bottom: 45px;
+
+          li {
+            margin-bottom: 10px;
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+
+            label {
+              font-family: "Open Sans Medium";
+              @include displayElement(flex, flex-start, center);
+
+              span {
+                margin-left: 15px;
+              }
+            }
+          }
+        }
+      }
+
+      .input_set {
+        margin-bottom: 20px;
+
+        input {
+          height: 45px;
+          width: 100%;
+          background-color: #f9f9f9;
+          font-family: "Open Sans Medium";
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+      }
+
+      .password_set {
+        @include displayElement(flex, flex-start, center);
+        position: relative;
+
+        .password_checkbox {
+          position: relative;
+          margin-left: 20px;
+          margin-right: 5px;
+          border: 3px solid $MineShaft;
+          border-radius: 5px;
+          padding: 4px;
+
+          input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+          }
+
+          .icon {
+            font-size: 21px;
+            margin-top: -1px;
+          }
+        }
+      }
+
+      .form_row {
+        margin-top: 35px;
+
+        .form_side {
+          .form_btns {
+            @include displayElement(flex, flex-start, center);
+            margin-top: 0px;
+            margin-bottom: 15px;
+
+            button {
+              font-family: "Open Sans Semi Bold";
+              border-radius: 5px;
+              padding: 5px;
+              color: white;
+            }
+
+            .reset_btn {
+              border: 3px solid $Atlantis;
+              background-color: $Atlantis;
+              margin-right: 10px;
+            }
+
+            .login_btn {
+              border: 3px solid $EasternBlue;
+              background-color: $EasternBlue;
+            }
+          }
+
+          .form_inner_bottom {
+            @include displayElement(flex, center, flex-end);
+            flex-direction: column;
+
+            button {
+              font-family: "Open Sans Semi Bold";
+            }
+
+            .forgot_password_btn {
+              color: $EasternBlue;
+              margin-bottom: 10px;
+            }
+
+            .create_account_btn {
+              color: $Atlantis;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.forgot_password_window,
+.create_account_window {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+
+  .darken {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.63);
+  }
+
+  .main {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    max-width: 950px;
+    max-height: 800px;
+    top: 50%;
+    left: 50%;
+    background-color: white;
+    transform: translate(-50%, -50%);
+    padding-top: 65px;
+    padding-bottom: 65px;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-radius: 5px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.043);
+
+    .main_inner {
+      .main_inner_top {
+        @include displayElement(flex, space-between, center);
+
+        h1 {
+          font-family: "Open Sans Bold";
+          font-size: $Logo;
+          color: $EasternBlue;
+          margin-bottom: 30px;
+        }
+
+        button {
+          border: 3px solid $Atlantis;
+          color: $Atlantis;
+          font-size: $Link;
+          border-radius: 5px;
+          width: 40px;
+          height: 40px;
+          @include displayElement(flex, center, center);
+
+          &:hover {
+            background-color: $Atlantis;
+            color: white;
+          }
+        }
+      }
+
+      .hint {
+        font-family: "Open Sans Medium";
+        font-size: $Link;
+        color: $MineShaft;
+        display: block;
+        margin-top: 20px;
+        margin-bottom: 40px;
+      }
+    }
+  }
+}
 
 // Responsive
 @media all and (max-width: 1995px) {

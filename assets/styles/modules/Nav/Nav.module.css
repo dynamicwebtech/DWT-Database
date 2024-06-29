@@ -34,6 +34,12 @@
   display: flex;
   align-items: center;
 }
+.nav .nav_inner .nav_inner_box .nav_inner_row .nav_L_LOGIN {
+  justify-content: center;
+}
+.nav .nav_inner .nav_inner_box .nav_inner_row .nav_L_LOGIN .nav_inner_side_cnt img {
+  max-width: 500px;
+}
 .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L {
   justify-content: flex-start;
 }
@@ -122,7 +128,8 @@
     width: 100%;
     justify-content: center;
   }
-  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L .nav_inner_side_cnt img {
+  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L .nav_inner_side_cnt img,
+  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L_LOGIN .nav_inner_side_cnt img {
     max-width: 400px;
   }
   .nav .nav_inner .nav_inner_box .nav_inner_row .nav_R .nav_inner_side_cnt .nav_btns {
@@ -149,7 +156,8 @@
     width: 100%;
     justify-content: center;
   }
-  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L .nav_inner_side_cnt img {
+  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L .nav_inner_side_cnt img,
+  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L_LOGIN .nav_inner_side_cnt img {
     max-width: 260px;
   }
   .nav .nav_inner .nav_inner_box .nav_inner_row .nav_R .nav_inner_side_cnt .nav_btns {
@@ -181,7 +189,8 @@
     width: 100%;
     justify-content: center;
   }
-  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L .nav_inner_side_cnt img {
+  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L .nav_inner_side_cnt img,
+  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L_LOGIN .nav_inner_side_cnt img {
     max-width: 250px;
   }
   .nav .nav_inner .nav_inner_box .nav_inner_row .nav_R .nav_inner_side_cnt .nav_btns {
@@ -216,10 +225,12 @@
     max-width: 50%;
     width: 100%;
   }
-  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L {
+  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L,
+  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L_LOGIN {
     justify-content: flex-start;
   }
-  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L .nav_inner_side_cnt img {
+  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L .nav_inner_side_cnt img,
+  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L_LOGIN .nav_inner_side_cnt img {
     max-width: 270px;
   }
   .nav .nav_inner .nav_inner_box .nav_inner_row .nav_R {
@@ -259,10 +270,10 @@
     max-width: 50%;
     width: 100%;
   }
-  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L {
+  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L, .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L_LOGIN {
     justify-content: flex-start;
   }
-  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L .nav_inner_side_cnt img {
+  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L .nav_inner_side_cnt img, .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L_LOGIN .nav_inner_side_cnt img {
     max-width: 340px;
   }
   .nav .nav_inner .nav_inner_box .nav_inner_row .nav_R {
@@ -302,10 +313,10 @@
     max-width: 50%;
     width: 100%;
   }
-  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L {
+  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L, .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L_LOGIN {
     justify-content: flex-start;
   }
-  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L .nav_inner_side_cnt img {
+  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L .nav_inner_side_cnt img, .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L_LOGIN .nav_inner_side_cnt img {
     max-width: 340px;
   }
   .nav .nav_inner .nav_inner_box .nav_inner_row .nav_R {
@@ -345,10 +356,10 @@
     max-width: 50%;
     width: 100%;
   }
-  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L {
+  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L, .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L_LOGIN {
     justify-content: flex-start;
   }
-  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L .nav_inner_side_cnt img {
+  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L .nav_inner_side_cnt img, .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L_LOGIN .nav_inner_side_cnt img {
     max-width: 360px;
   }
   .nav .nav_inner .nav_inner_box .nav_inner_row .nav_R {
@@ -388,10 +399,10 @@
     max-width: 50%;
     width: 100%;
   }
-  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L {
+  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L, .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L_LOGIN {
     justify-content: flex-start;
   }
-  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L .nav_inner_side_cnt img {
+  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L .nav_inner_side_cnt img, .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L_LOGIN .nav_inner_side_cnt img {
     max-width: 360px;
   }
   .nav .nav_inner .nav_inner_box .nav_inner_row .nav_R {
@@ -431,10 +442,10 @@
     max-width: 50%;
     width: 100%;
   }
-  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L {
+  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L, .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L_LOGIN {
     justify-content: flex-start;
   }
-  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L .nav_inner_side_cnt img {
+  .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L .nav_inner_side_cnt img, .nav .nav_inner .nav_inner_box .nav_inner_row .nav_L_LOGIN .nav_inner_side_cnt img {
     max-width: 360px;
   }
   .nav .nav_inner .nav_inner_box .nav_inner_row .nav_R {

@@ -1,8 +1,8 @@
 # Enables CORS Policy for fonts, etc.
 <FilesMatch "\.(ttf)$">
-    Header set Access-Control-Allow-Origin "PUT_DOMAIN_HERE"
+    Header set Access-Control-Allow-Origin "remarkable-jelly-9bc15d.netlify.app"
 </FilesMatch>
-# Header set Access-Control-Allow-Origin "PUT_DOMAIN_HERE_HTTP PUT_DOMAIN_HERE_HTTPS"
+# Header set Access-Control-Allow-Origin "http://remarkable-jelly-9bc15d.netlify.app/ https://remarkable-jelly-9bc15d.netlify.app/"
 
 # Browser Caching Expires - Helps boost performance with caching
 <IfModule mod_expires.c>
