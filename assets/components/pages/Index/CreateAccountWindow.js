@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 
 import { FaTimes } from "react-icons/fa";
 
+import CheckValidInputValue from "@/assets/functions/dom/checkers/CheckValidInputValue";
+
 import styles from "../../../styles/modules/Index/Index.module.css";
 
 export const CreateAccountWindow = ({ users, setter }) => {
@@ -23,39 +25,66 @@ export const CreateAccountWindow = ({ users, setter }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (createPassword !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
+    const EMAIL = document.getElementById("createEmail");
+    const USERNAME = document.getElementById("createUsername");
+    const PASSWORD = document.getElementById("createPassword");
+    const CONFIRM_PASSWORD = document.getElementById("confirmPassword");
 
-    try {
-      const response = await fetch("/api/users/addUsers", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          createEmail: createEmail,
-          createUsername: createUsername,
-          createPassword: createPassword,
-        }),
-      });
+    const CHECK_EMAIL = CheckValidInputValue("text", EMAIL);
+    const CHECK_USERNAME = CheckValidInputValue("text", USERNAME);
+    const CHECK_PASSWORD = CheckValidInputValue("text", PASSWORD);
+    const CHECK_CONFIRM_PASSWORD = CheckValidInputValue(
+      "text",
+      CONFIRM_PASSWORD
+    );
 
-      const data = await response.json();
-
-      if (response.ok) {
-        setSuccess(data.message);
-        setError("");
-        handleReset(e);
-        router.reload();
-      } else {
-        setError(data.error);
-        setSuccess("");
+    if (
+      CHECK_EMAIL &&
+      CHECK_USERNAME &&
+      CHECK_PASSWORD &&
+      CHECK_CONFIRM_PASSWORD
+    ) {
+      if (createPassword !== confirmPassword) {
+        setError("Passwords do not match");
+        alert("ERROR: " + error);
+        return;
       }
-    } catch (error) {
-      console.error("Error creating user:", error);
-      setError("An error occurred while creating the account");
-      setSuccess("");
+
+      try {
+        const response = await fetch("/api/users/addUsers", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            createEmail: createEmail,
+            createUsername: createUsername,
+            createPassword: createPassword,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          setSuccess(data.message);
+          setError("");
+          handleReset(e);
+          router.reload();
+        } else {
+          setError(data.error);
+          setSuccess("");
+          alert("ERROR: " + data.error);
+        }
+      } catch (error) {
+        console.error("Error creating user:", error);
+        setError("An error occurred while creating the account");
+        setSuccess("");
+        alert("ERROR: " + error);
+      }
+    } else {
+      console.error("Please fill out all input fields", error);
+      setError("Please fill out all input fields");
+      alert("ERROR: Please fill out all input fields");
     }
   };
 
@@ -95,12 +124,11 @@ export const CreateAccountWindow = ({ users, setter }) => {
             </button>
           </div>
 
-          <span>
+          <span
+            className={`${styles.hint} orientation-change-element half-second`}
+          >
             Please enter in the required info to create a database user.
           </span>
-
-          {error && <p className={`${styles.error}`}>{error}</p>}
-          {success && <p className={`${styles.success}`}>{success}</p>}
 
           <form onSubmit={handleSubmit} onReset={handleReset}>
             <div className={`${styles.form_set}`}>

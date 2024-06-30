@@ -211,4 +211,47 @@
   display: block;
   margin-top: 20px;
   margin-bottom: 40px;
+}
+.forgot_password_window .main form .form_set input,
+.create_account_window .main form .form_set input {
+  height: 45px;
+  width: 100%;
+  background-color: #f9f9f9;
+  font-family: "Open Sans Medium";
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.forgot_password_window .main form .form_btns,
+.create_account_window .main form .form_btns {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+.forgot_password_window .main form .form_btns button,
+.create_account_window .main form .form_btns button {
+  font-family: "Open Sans Semi Bold";
+  border-radius: 5px;
+  padding: 5px;
+  color: white;
+  border: 3px solid #1684a7;
+  background-color: #1684a7;
+}
+.forgot_password_window .main form .form_btns .reset_btn,
+.create_account_window .main form .form_btns .reset_btn {
+  border: 3px solid #abc635;
+  background-color: #abc635;
+  margin-right: 10px;
+}
+
+.create_account_window .main {
+  max-height: 600px;
+}
+.create_account_window .main .main_inner form .form_set {
+  margin-bottom: 20px;
+}
+
+.forgot_password_window .main {
+  max-height: 400px;
 }/*# sourceMappingURL=Index.module.css.map */

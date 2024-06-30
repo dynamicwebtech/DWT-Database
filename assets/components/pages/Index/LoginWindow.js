@@ -5,6 +5,8 @@ import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { ForgotPasswordWindow } from "./Password/ForgotPasswordWindow";
 import { CreateAccountWindow } from "./CreateAccountWindow";
 
+import CheckValidInputValue from "@/assets/functions/dom/checkers/CheckValidInputValue";
+
 import styles from "../../../styles/modules/Index/Index.module.css";
 
 export const LoginWindow = ({ users }) => {
@@ -26,15 +28,26 @@ export const LoginWindow = ({ users }) => {
     let loginData = {};
 
     if (withUsernameStatus) {
+      if (!loginUsername || !loginPassword) {
+        alert("ERROR: Please enter a username and password to login.");
+        return;
+      }
       loginData = {
         createUsername: loginUsername,
         createPassword: loginPassword,
       };
     } else if (withEmailStatus) {
+      if (!loginEmail || !loginPassword) {
+        alert("ERROR: Please enter an email and password to login.");
+        return;
+      }
       loginData = {
         createEmail: loginEmail,
         createPassword: loginPassword,
       };
+    } else {
+      alert("ERROR: Please select a login method.");
+      return;
     }
 
     try {
@@ -65,7 +78,7 @@ export const LoginWindow = ({ users }) => {
     setPasswordStatus(false);
     document.getElementById("loginPassword").type = "password";
     setWithEmailStatus(false);
-    setWithUsernameStatus(true);
+    setWithUsernameStatus(false);
     setLoginEmail("");
     setLoginUsername("");
     setLoginPassword("");

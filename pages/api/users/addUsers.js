@@ -31,10 +31,16 @@ export default async function handler(req, res) {
         .db(process.env.USERS_DB_NAME)
         .collection(process.env.USERS_DB_COLLECTION);
 
-      const existingUser = await collection.findOne({ createEmail });
+      const existingEmail = await collection.findOne({ createEmail });
+      const existingUsername = await collection.findOne({ createUsername });
 
-      if (existingUser) {
+      if (existingEmail) {
         res.status(400).json({ error: "Email already in use." });
+        return; // Exit early if email already exists
+      }
+
+      if (existingUsername) {
+        res.status(400).json({ error: "Username already in use." });
         return; // Exit early if email already exists
       }
 

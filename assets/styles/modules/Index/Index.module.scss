@@ -234,6 +234,58 @@
         margin-bottom: 40px;
       }
     }
+
+    form {
+      .form_set {
+        input {
+          height: 45px;
+          width: 100%;
+          background-color: #f9f9f9;
+          font-family: "Open Sans Medium";
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+      }
+
+      .form_btns {
+        @include displayElement(flex, flex-start, center);
+        margin-top: 20px;
+        margin-bottom: 15px;
+
+        button {
+          font-family: "Open Sans Semi Bold";
+          border-radius: 5px;
+          padding: 5px;
+          color: white;
+          border: 3px solid $EasternBlue;
+          background-color: $EasternBlue;
+        }
+
+        .reset_btn {
+          border: 3px solid $Atlantis;
+          background-color: $Atlantis;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}
+.create_account_window {
+  .main {
+    max-height: 600px;
+
+    .main_inner {
+      form {
+        .form_set {
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+}
+.forgot_password_window {
+  .main {
+    max-height: 400px;
   }
 }
 

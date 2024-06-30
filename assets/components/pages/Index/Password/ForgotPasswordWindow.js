@@ -10,6 +10,8 @@ import emailjs from "@emailjs/browser";
 
 import { FaTimes } from "react-icons/fa";
 
+import CheckValidInputValue from "@/assets/functions/dom/checkers/CheckValidInputValue";
+
 import styles from "../../../../styles/modules/Index/Index.module.css";
 
 export const ForgotPasswordWindow = ({ users, setter }) => {
@@ -53,46 +55,63 @@ export const ForgotPasswordWindow = ({ users, setter }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (forgotEmail) {
-      const USER_EXISTS = await checkUserExists(forgotEmail);
+    const EMAIL = document.getElementById("forgotEmail");
+    const CHECK_EMAIL = CheckValidInputValue("text", EMAIL);
 
-      if (!USER_EXISTS) {
-        setError("No account was found with this email address..");
-        setSuccess("");
-        return;
-      }
+    if (CHECK_EMAIL) {
+      if (forgotEmail) {
+        const USER_EXISTS = await checkUserExists(forgotEmail);
 
-      emailjs.init("RtWsd320lLqYQS6kT");
-      const RESET_LINK = generateResetLink(forgotEmail);
+        if (!USER_EXISTS) {
+          setError("No account was found with this email address..");
+          setSuccess("");
+          alert("ERROR: " + error);
+          return;
+        }
 
-      const TEMPLATE_PARAMS = {
-        resetPasswordEmail: RESET_LINK,
-        userEmailAddress: forgotEmail,
-      };
+        emailjs.init("RtWsd320lLqYQS6kT");
+        const RESET_LINK = generateResetLink(forgotEmail);
 
-      let sentSuccess;
+        const TEMPLATE_PARAMS = {
+          resetPasswordEmail: RESET_LINK,
+          userEmailAddress: forgotEmail,
+        };
 
-      try {
-        emailjs
-          .send("service_xkj97uv", "template_8qo28qj", TEMPLATE_PARAMS)
-          .then((res) => {
-            console.log("Email sent successfully: " + res);
+        let sentSuccess;
 
-            sentSuccess = true;
+        try {
+          emailjs
+            .send("service_xkj97uv", "template_8qo28qj", TEMPLATE_PARAMS)
+            .then((res) => {
+              console.log("Email sent successfully: " + res);
 
-            setTimeout(() => {
-              if (sentSuccess) {
-                router.reload();
-              }
-            }, 300);
-          });
-      } catch (error) {
-        console.error("Error sending forgot password email:", error);
-        setError("An error sending forgot password email occured");
-        setSuccess("");
+              sentSuccess = true;
+
+              setTimeout(() => {
+                if (sentSuccess) {
+                  router.reload();
+                }
+              }, 300);
+            });
+        } catch (error) {
+          console.error("Error sending forgot password email:", error);
+          setError("An error sending forgot password email occured");
+          setSuccess("");
+          alert("ERROR: " + error);
+        }
+      } else {
+        setError(
+          "Please enter in an email to send the reset password link to."
+        );
+        alert(
+          "ERROR: Please enter in an email to send the reset password link to."
+        );
       }
     } else {
       setError("Please enter in an email to send the reset password link to.");
+      alert(
+        "ERROR: Please enter in an email to send the reset password link to."
+      );
     }
   };
 
@@ -118,20 +137,19 @@ export const ForgotPasswordWindow = ({ users, setter }) => {
       <div id="fP_Main" className={`${styles.main}`}>
         <div className={`${styles.main_inner}`}>
           <div className={`${styles.main_inner_top}`}>
-            <h1>Create An Account</h1>
+            <h1>Forgot Password</h1>
 
             <button onClick={closeWindow} className={`${styles.icon}`}>
               <FaTimes />
             </button>
           </div>
 
-          <span>
+          <span
+            className={`${styles.hint} orientation-change-element half-second`}
+          >
             Please enter the email address used for the account to send a reset
             password link.
           </span>
-
-          {error && <p className={`${styles.error}`}>{error}</p>}
-          {success && <p className={`${styles.success}`}>{success}</p>}
 
           <form onSubmit={handleSubmit} onReset={handleReset}>
             <div className={`${styles.form_set}`}>
@@ -149,8 +167,8 @@ export const ForgotPasswordWindow = ({ users, setter }) => {
               <button type="reset" className={`${styles.reset_btn}`}>
                 Clear
               </button>
-              <button type="submit" className={`${styles.create_btn}`}>
-                Create Account
+              <button type="submit" className={`${styles.send_reset_link_btn}`}>
+                Send Reset Link
               </button>
             </div>
           </form>
